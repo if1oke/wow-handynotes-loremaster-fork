@@ -11,6 +11,7 @@ ignore:
     - README*
     - TODO.txt
     - docs
+    - *.exe
 
 # For copying files without processing (after downloading latest externals)
 plain-copy:

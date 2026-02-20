@@ -4,6 +4,7 @@ libs
 utils
 release.sh
 setup-packager.sh
+docs
 
 # Local packaging test
 .release
