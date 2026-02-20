@@ -1,8 +1,8 @@
 # HandyNotes: Loremaster
 
 [![GitHub repo](https://img.shields.io/badge/repo-wow--handynotes--loremaster-gray?logo=github&color=%2324292E)](https://github.com/if1oke/wow-handynotes-loremaster "Repo on GitHub")
-![GitHub tag](https://img.shields.io/github/v/tag/erglo/wow-handynotes-loremaster?logo=github&label=latest&color=darkgreen)
-![CurseForge Game Versions](https://img.shields.io/curseforge/game-versions/909254?logo=battle.net&logoColor=%23148EFF&label=WoW-retail)
+![GitHub Tag](https://img.shields.io/github/v/tag/if1oke/wow-handynotes-loremaster-fork)
+![CurseForge Game Versions](https://img.shields.io/curseforge/game-versions/1467382?logo=battle.net&logoColor=%23148EFF&label=WoW-retail)
 
 ## THIS IS A FORK OF ORIGINAL LOREMASTER ADDON WITH 12.X SUPPORT, BELOW IS THE ORIGINAL README:
 

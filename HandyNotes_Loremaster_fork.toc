@@ -11,9 +11,7 @@
 ## X-Website-WoWInterface: https://www.wowinterface.com/downloads/info26628-HandyNotesLoremaster.html
 ## X-Website-Wago: https://addons.wago.io/addons/wow-handynotes-loremaster
 
-## X-Curse-Project-ID: 909254
-## X-Wago-ID: b6XVyOGp
-## X-WoWI-ID: 26628
+## X-Curse-Project-ID: 1467382
 
 ## X-License: GNU General Public License Version 3
 ## X-Category: Map & Minimap, Plugins, Achievements, Quests & Leveling, Tooltip

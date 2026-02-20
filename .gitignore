@@ -2,6 +2,8 @@
 .synkron.syncdb
 libs
 utils
+release.sh
+setup-packager.sh
 
 # Local packaging test
 .release
