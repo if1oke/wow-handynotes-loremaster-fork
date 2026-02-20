@@ -1,8 +1,10 @@
 # HandyNotes: Loremaster
 
-[![GitHub repo](https://img.shields.io/badge/repo-wow--handynotes--loremaster-gray?logo=github&color=%2324292E)](https://github.com/erglo/wow-handynotes-loremaster/ "Repo on GitHub")
+[![GitHub repo](https://img.shields.io/badge/repo-wow--handynotes--loremaster-gray?logo=github&color=%2324292E)](https://github.com/if1oke/wow-handynotes-loremaster "Repo on GitHub")
 ![GitHub tag](https://img.shields.io/github/v/tag/erglo/wow-handynotes-loremaster?logo=github&label=latest&color=darkgreen)
 ![CurseForge Game Versions](https://img.shields.io/curseforge/game-versions/909254?logo=battle.net&logoColor=%23148EFF&label=WoW-retail)
+
+## THIS IS A FORK OF ORIGINAL LOREMASTER ADDON WITH 12.X SUPPORT, BELOW IS THE ORIGINAL README:
 
 This World of Warcraft™ addon helps you keep track of the Loremaster story quest achievements as well as questlines and campaigns.  
 Simply **hover a quest icon** on the world map, if it is part of a questline or a story campaign additional details about your progress will appear in the icon's tooltip.

@@ -2,8 +2,9 @@
 --[[ Database - Utility functions for saving and loading save game data. ]]--
 -- 
 -- by erglo <erglo.coder+HNLM@gmail.com>
+-- forked and supported by if1oke <cloud.hex+HNLM@gmail.com>
 --
--- Copyright (C) 2024  Erwin D. Glockner (aka erglo, ergloCoder)
+-- Copyright (C) 2024  Erwin D. Glockner (aka erglo, ergloCoder) & Igor Fedorov (aka if1oke)
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by

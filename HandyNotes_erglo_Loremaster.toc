@@ -1,12 +1,12 @@
 ## Interface: 120001
-## Title: HandyNotes: Loremaster
+## Title: HandyNotes: Loremaster (Fork)
 ## Notes: Helps you keep track of the Loremaster zone story achievements as well as campaigns and questlines.
 ## Notes-deDE: Hilft euch die "Meister der Lehren" Erfolge sowie Kampagnen und Questreihen im Blick zu behalten.
 ## IconTexture: 133739
-## Version: v0.10.0-beta
-## Author: ergloCoder
-## X-Email: erglo.coder+HNLM@gmail.com
-## X-Website: https://github.com/erglo/wow-handynotes-loremaster
+## Version: v0.10.1-beta
+## Author: if1oke
+## X-Email: cloud.hex+HNLM@gmail.com
+## X-Website: https://github.com/if1oke/wow-handynotes-loremaster
 ## X-Website-CurseForge: https://www.curseforge.com/wow/addons/handynotes-loremaster
 ## X-Website-WoWInterface: https://www.wowinterface.com/downloads/info26628-HandyNotesLoremaster.html
 ## X-Website-Wago: https://addons.wago.io/addons/wow-handynotes-loremaster

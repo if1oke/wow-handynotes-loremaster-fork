@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.1-beta+120001] - 2026-02-20
+
+### Changed
+
+* TOC: updated interface version to `120001` to support WoW 12.0 (and HandyNotes 12.0).
+
+### Fixed
+
+* Quest Info: fixed Lua errors caused by `C_QuestLog.IsLegendaryQuest` being removed in WoW 12.0 — added nil-check guard before calling the function (`Core.lua`, `data/questinfo.lua`).
+* Quest Info: fixed Lua errors caused by `C_QuestLog.IsRepeatableQuest` being removed in WoW 12.0 — added nil-check guard before calling the function (`Core.lua`, `data/questinfo.lua`).
+* Quest Info: fixed Lua errors caused by `C_QuestLog.IsQuestRepeatableType` being removed in WoW 12.0 — added nil-check guard before calling the function (`data/questinfo.lua`).
+
 ## [0.10.0-beta+110002] - 2024-09-20
 
 ### Added
