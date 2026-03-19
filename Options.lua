@@ -65,6 +65,7 @@ ns.pluginInfo.defaultOptions = {
         ["continentIconScale"] = 1.5,
         ["continentIconAlpha"] = 0.75,
         ["hideZoneStoryInCompletedZones"] = false,
+        ["hideQuestMapTooltips"] = false,
         -- ["showTagQuestline"] = false,
 	},
 }
@@ -75,7 +76,8 @@ ns.pluginInfo.needWorldMapRefresh = {
 ns.pluginInfo.needWorldMapRefreshAll = {
     "scrollStep",
     "continentIconScale",
-    "continentIconAlpha"
+    "continentIconAlpha",
+    "hideQuestMapTooltips"
 }
 ns.pluginInfo.InitializeOptions = function(self, LoremasterPlugin)
     return {
@@ -145,13 +147,21 @@ ns.pluginInfo.InitializeOptions = function(self, LoremasterPlugin)
                                 name = "The settings in this section apply to all tooltips."..L.NEW_PARAGRAPH,
                                 order = 0,
                             },
+                            hide_map_tooltip = {
+                                type = "toggle",
+                                name = "Hide map tooltips"..LocalOptionUtils.newFeatureIconString,
+                                desc = "Disable Loremaster tooltip on quest hover.",
+                                arg = "hideQuestMapTooltips",
+                                width = "full",
+                                order = 1,
+                            },
                             show_quest_title = {
                                 type = "toggle",
                                 name = "Show Quest Title"..LocalOptionUtils.newFeatureIconString,
                                 desc = "Show or hide the title in the Loremaster tooltip.",
                                 arg = "showQuestTitle",
                                 width = "full",
-                                order = 1,
+                                order = 2,
                             },
                             plugin_name = {
                                 type = "toggle",
@@ -159,7 +169,7 @@ ns.pluginInfo.InitializeOptions = function(self, LoremasterPlugin)
                                 desc = "The plugin name indicates that everything below it is content created by this plugin. Deactivate to hide the name.",
                                 arg = "showPluginName",
                                 width = "full",
-                                order = 2,
+                                order = 3,
                             },
                             category_names = {
                                 type = "toggle",
@@ -167,7 +177,7 @@ ns.pluginInfo.InitializeOptions = function(self, LoremasterPlugin)
                                 desc = "Each content category is indicated by its name. Deactivate to hide those names.",
                                 arg = "showCategoryNames",
                                 width = "full",
-                                order = 3,
+                                order = 4,
                             },
                             quest_type = {
                                 type = "toggle",
@@ -175,7 +185,7 @@ ns.pluginInfo.InitializeOptions = function(self, LoremasterPlugin)
                                 desc = "Show or hide the type name and icon of a quest. Blizzard shows you this detail only after accepting a quest."..LocalOptionUtils:AppendQuestTypeExampleText(CALENDAR_TYPE_RAID, "raid"),
                                 arg = "showQuestType",
                                 width = "full",
-                                order = 4,
+                                order = 5,
                             },
                             quest_turn_in = {
                                 type = "toggle",
@@ -183,7 +193,7 @@ ns.pluginInfo.InitializeOptions = function(self, LoremasterPlugin)
                                 desc = "Show or hide this message. This option affects active quests only.",
                                 arg = "showQuestTurnIn",
                                 width = "full",
-                                order = 5,
+                                order = 6,
                             },
                             separator_pre_advanced = {
                                 type = "description",

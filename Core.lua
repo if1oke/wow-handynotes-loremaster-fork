@@ -1722,7 +1722,9 @@ local function AddTooltipContent(contentTooltip, pin)
         local TitleColor = LocalUtils:IsPinTaskQuest(pin) and GetWorldQuestQualityColor(pin.questInfo.questTagInfo) or (pin.questInfo.isCalling and HIGHLIGHT_FONT_COLOR or NORMAL_FONT_COLOR)
         local lineIndex, columnIndex = LibQTipUtil:SetColoredTitle(contentTooltip, TitleColor, '')
         --> REF.: qTip:SetCell(lineNum, colNum, value[, font][, justification][, colSpan][, provider][, leftPadding][, rightPadding][, maxWidth][, minWidth][, ...])
-        contentTooltip:SetCell(lineIndex, 1, pin.questInfo.questName, nil, "LEFT", nil, nil, nil, nil, GameTooltip:GetWidth(), GameTooltip:GetWidth()-20)
+        local tooltipWidth = GameTooltip:GetWidth()
+        local ok, cellMinWidth = pcall(function() return tooltipWidth - 20 end)
+        contentTooltip:SetCell(lineIndex, 1, pin.questInfo.questName, nil, "LEFT", nil, nil, nil, nil, tooltipWidth, ok and cellMinWidth or nil)
     end
 
     -- Plugin name
@@ -1807,6 +1809,9 @@ end
 local function WorldMapPin_RefreshAllData(pin)
     -- Extend quest meta data
     UpdateWorldMapPinQuestInfo(pin)
+
+    -- Disable ingame Loremaster tooltips based on settings
+    if ns.settings.hideQuestMapTooltips then return end
 
     -- Dev info
     if (debug.isActive and IsShiftKeyDown() and IsControlKeyDown()) then
