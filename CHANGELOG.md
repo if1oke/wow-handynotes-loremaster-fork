@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.2a-beta+120001] - 2026-03-29
+
+### Fixed
+
+* Tooltip: fixed Lua errors caused by WoW taint system marking frame dimension values as "secret numbers" — `GameTooltip:GetWidth()` and similar API calls could return tainted values after addon interaction, causing arithmetic and comparison failures. Added `SafeNumber()` wrapper (`tonumber(tostring(value))`) to sanitize tainted values before use in tooltip width calculations (`Core.lua`).
+
 ## [0.10.1-beta+120001] - 2026-02-20
 
 ### Changed

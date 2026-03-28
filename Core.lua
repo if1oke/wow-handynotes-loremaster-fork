@@ -83,6 +83,12 @@ local C_Map = C_Map  -- C_TaskQuest
 local C_QuestInfoSystem = C_QuestInfoSystem
 local CreateAtlasMarkup = CreateAtlasMarkup
 
+-- Strip taint from "secret number" values returned by frame methods (GetWidth, GetTop, etc.)
+-- since patch 11.0+ Blizzard marks these as tainted in addon context.
+local function SafeNumber(value)
+    return tonumber(tostring(value)) or 0
+end
+
 local GREEN_FONT_COLOR, NORMAL_FONT_COLOR, HIGHLIGHT_FONT_COLOR = GREEN_FONT_COLOR, NORMAL_FONT_COLOR, HIGHLIGHT_FONT_COLOR
 local BRIGHTBLUE_FONT_COLOR, FACTION_GREEN_COLOR = BRIGHTBLUE_FONT_COLOR, FACTION_GREEN_COLOR
 local LIGHTYELLOW_FONT_COLOR, NECROLORD_GREEN_COLOR = LIGHTYELLOW_FONT_COLOR, NECROLORD_GREEN_COLOR
@@ -813,9 +819,11 @@ function LocalQuestUtils:AddQuestTagLinesToTooltip_New(tooltip, baseQuestInfo)
     for _, tagInfo in ipairs(tagInfoList) do
         local text = string.format("%s %s", tagInfo.atlasMarkup or '', tagInfo.tagName or L.UNKNOWN)
         local lineIndex = LibQTipUtil:AddColoredLine(tooltip, LineColor, text)
-        if (tooltip:GetWidth() < GameTooltip:GetWidth()) then
+        local gameTooltipWidth = SafeNumber(GameTooltip:GetWidth())
+        local tooltipW = SafeNumber(tooltip:GetWidth())
+        if (tooltipW < gameTooltipWidth) then
             -- Don't wrap tag lines which are longer than the GameTooltip, but stretch smaller ones to fit its width.
-            tooltip:SetCell(lineIndex, 1, text, nil, "LEFT", nil, nil, nil, nil, GameTooltip:GetWidth(), GameTooltip:GetWidth()-20)
+            tooltip:SetCell(lineIndex, 1, text, nil, "LEFT", nil, nil, nil, nil, gameTooltipWidth, gameTooltipWidth - 20)
         end
         if (questInfo.isTrivial and ns.settings.showTagTransparency) then
             local r, g, b = LineColor:GetRGB()
@@ -1321,7 +1329,8 @@ LocalQuestLineUtils.AddQuestLineDetailsToTooltip = function(self, tooltip, pin, 
         questLineCountLine = questLineCountLine..L.TEXT_DELIMITER_2X..L.QUESTLINE_NUM_RECURRING_FORMAT:format(filteredQuestInfos.numRepeatable)
     end
     local lineIndex = LibQTipUtil:AddNormalLine(tooltip, questLineCountLine)
-    tooltip:SetCell(lineIndex, 1, questLineCountLine, nil, "LEFT", nil, nil, nil, nil, GameTooltip:GetWidth(), GameTooltip:GetWidth()-20)
+    local gameTooltipWidth = SafeNumber(GameTooltip:GetWidth())
+    tooltip:SetCell(lineIndex, 1, questLineCountLine, nil, "LEFT", nil, nil, nil, nil, gameTooltipWidth, gameTooltipWidth - 20)
 
     -- Questline quests
     if GetCollapseTypeModifier(filteredQuestInfos.isComplete, "collapseType_questline") then
@@ -1493,9 +1502,9 @@ end
 
 local function SetZoneStoryTooltipAnchorPoint()
     if WorldMapFrame:IsMaximized() then
-        local uiScale = UIParent:GetEffectiveScale()
-        local screenWidth = GetScreenWidth() * uiScale
-        if ( GetCursorPosition() < screenWidth / 2 ) then
+        local uiScale = SafeNumber(UIParent:GetEffectiveScale())
+        local screenWidth = SafeNumber(GetScreenWidth()) * uiScale
+        if ( SafeNumber(GetCursorPosition()) < screenWidth / 2 ) then
             ZoneStoryTooltip:SetPoint("TOPRIGHT", WorldMapFrame.ScrollContainer, "TOPRIGHT", 0, -38)
         else
             ZoneStoryTooltip:SetPoint("TOPLEFT", WorldMapFrame.ScrollContainer, "TOPLEFT")
@@ -1511,16 +1520,16 @@ end
 -- top and right side of the screen.
 -- 
 local function ShowAllTooltips()
-    local uiScale = UIParent:GetEffectiveScale()
-    local screenHeight = GetScreenHeight() * uiScale
-    local screenWidth = GetScreenWidth() * uiScale
+    local uiScale = SafeNumber(UIParent:GetEffectiveScale())
+    local screenHeight = SafeNumber(GetScreenHeight()) * uiScale
+    local screenWidth = SafeNumber(GetScreenWidth()) * uiScale
 
-    local primaryHeight = ContentTooltip:GetHeight() * uiScale
+    local primaryHeight = SafeNumber(ContentTooltip:GetHeight()) * uiScale
     local scrollStep = ns.settings.scrollStep
     -- Note: screen sizes need to be here, not reliable at start-up
 
     -- Too far on top, content tooltip is overlapping with the game tooltip
-    if (ContentTooltip:GetTop() * uiScale) > (GameTooltip:GetBottom() * uiScale) then
+    if (SafeNumber(ContentTooltip:GetTop()) * uiScale) > (SafeNumber(GameTooltip:GetBottom()) * uiScale) then
         GameTooltip:ClearAllPoints()
         if CampaignTooltip then
             -- Show game tooltip on top of campaign tooltip
@@ -1531,7 +1540,7 @@ local function ShowAllTooltips()
             GameTooltip:SetPoint("BOTTOMLEFT", ContentTooltip, "BOTTOMRIGHT")
         end
         -- Too far to the right, show the game tooltip on the left side of the content tooltip
-        if (((ContentTooltip:GetRight() + GameTooltip:GetWidth()) * uiScale ) > screenWidth) then
+        if ((SafeNumber(ContentTooltip:GetRight()) + SafeNumber(GameTooltip:GetWidth())) * uiScale > screenWidth) then
             GameTooltip:ClearAllPoints()
             GameTooltip:SetPoint("BOTTOMRIGHT", ContentTooltip, "BOTTOMLEFT")
         end
@@ -1548,7 +1557,7 @@ local function ShowAllTooltips()
     end
 
     if ZoneStoryTooltip then
-        if ns.isWorldMapMaximized and (ZoneStoryTooltip:GetRight() * uiScale > ContentTooltip:GetLeft() * uiScale) then
+        if ns.isWorldMapMaximized and (SafeNumber(ZoneStoryTooltip:GetRight()) * uiScale > SafeNumber(ContentTooltip:GetLeft()) * uiScale) then
             ZoneStoryTooltip:ClearAllPoints()
             ZoneStoryTooltip:SetPoint("TOPRIGHT", WorldMapFrame.ScrollContainer, "TOPRIGHT", 0, -38)
         end
@@ -1557,11 +1566,11 @@ local function ShowAllTooltips()
     end
 
     if CampaignTooltip then
-        if (CampaignTooltip:GetRight() * uiScale > screenWidth) then
+        if (SafeNumber(CampaignTooltip:GetRight()) * uiScale > screenWidth) then
             -- Too far to the right, show campaign tooltip on the left side of the content tooltip
             CampaignTooltip:ClearAllPoints()
             CampaignTooltip:SetPoint("BOTTOMRIGHT", ContentTooltip, "BOTTOMLEFT")
-            if (ContentTooltip:GetTop() * uiScale) > (GameTooltip:GetBottom() * uiScale) then
+            if (SafeNumber(ContentTooltip:GetTop()) * uiScale) > (SafeNumber(GameTooltip:GetBottom()) * uiScale) then
                 -- Too far in the upper right corner, show game tooltip on top the campaign tooltip
                 GameTooltip:ClearAllPoints()
                 GameTooltip:SetPoint("BOTTOMRIGHT", CampaignTooltip, "TOPRIGHT")
@@ -1722,9 +1731,8 @@ local function AddTooltipContent(contentTooltip, pin)
         local TitleColor = LocalUtils:IsPinTaskQuest(pin) and GetWorldQuestQualityColor(pin.questInfo.questTagInfo) or (pin.questInfo.isCalling and HIGHLIGHT_FONT_COLOR or NORMAL_FONT_COLOR)
         local lineIndex, columnIndex = LibQTipUtil:SetColoredTitle(contentTooltip, TitleColor, '')
         --> REF.: qTip:SetCell(lineNum, colNum, value[, font][, justification][, colSpan][, provider][, leftPadding][, rightPadding][, maxWidth][, minWidth][, ...])
-        local tooltipWidth = GameTooltip:GetWidth()
-        local ok, cellMinWidth = pcall(function() return tooltipWidth - 20 end)
-        contentTooltip:SetCell(lineIndex, 1, pin.questInfo.questName, nil, "LEFT", nil, nil, nil, nil, tooltipWidth, ok and cellMinWidth or nil)
+        local tooltipWidth = SafeNumber(GameTooltip:GetWidth())
+        contentTooltip:SetCell(lineIndex, 1, pin.questInfo.questName, nil, "LEFT", nil, nil, nil, nil, tooltipWidth, tooltipWidth - 20)
     end
 
     -- Plugin name
