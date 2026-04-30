@@ -1798,8 +1798,11 @@ end
 
 -- Extend and update quest meta data
 local function UpdateWorldMapPinQuestInfo(pin)
+    if not ns.activeZoneMapInfo then
+        ns.activeZoneMapInfo = LocalUtils:GetBestMapInfoForPlayer()
+    end
     local isSameAsPreviousPin = pin.questInfo and pin.questInfo.questID == pin.questID
-    local isSameArea = pin.mapID and pin.mapID == ns.activeZoneMapInfo.mapID
+    local isSameArea = pin.mapID and ns.activeZoneMapInfo and pin.mapID == ns.activeZoneMapInfo.mapID
 
     if not (isSameAsPreviousPin and isSameArea) then
         -- Only refresh quest data once when hovering a different quest pin or changing the area
