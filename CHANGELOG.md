@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.3-beta+120005] - 2026-04-30
+
+### Changed
+
+* TOC: updated interface version to `120005` for current WoW 12.0.5 retail patch.
+
+### Fixed
+
+* Quest Pin: fixed Lua error `attempt to index a nil value` in `UpdateWorldMapPinQuestInfo` — `ns.activeZoneMapInfo` could still be `nil` when a quest pin tooltip was triggered before the world map data provider had initialized it. Added a fallback to the player's current map info and a nil-guard on the area comparison (`Core.lua`).
+
 ## [0.10.2a-beta+120001] - 2026-03-29
 
 ### Fixed
